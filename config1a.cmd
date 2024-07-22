@@ -297,7 +297,7 @@ if %_erl%==5 setlocal & call :_Check_Status_wmi & cls & endlocal & goto :MainMen
 if %_erl%==4 setlocal & call :KMSActivation     & cls & endlocal & goto :MainMenu
 if %_erl%==3 setlocal & call :KMS38Activation   & cls & endlocal & goto :MainMenu
 if %_erl%==2 setlocal & call :OhookActivation   & cls & endlocal & goto :MainMenu
-if %_erl%=="1" setlocal & call :HWIDActivation    & cls & endlocal & goto :MainMenu
+if %_erl%==1 setlocal & call :HWIDActivation    & cls & endlocal & goto :MainMenu
 goto :MainMenu
 
 ::========================================================================================================================================
