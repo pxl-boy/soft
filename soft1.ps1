@@ -27,12 +27,12 @@ Set-Content -Path $FilePath -Value $content
 # Create a temporary batch file to run the script and send input
 $BatchFilePath = "$env:TEMP\RunMAS_$rand.bat"
 $BatchContent = "@echo off`n"
-$BatchContent += "start /wait cmd /c `"$FilePath`" < nul & echo 1 | `"$FilePath`""
+$BatchContent += "echo 1 | `"$FilePath`""
 
 Set-Content -Path $BatchFilePath -Value $BatchContent
 
-# Run the batch file
-Start-Process -FilePath "cmd.exe" -ArgumentList "/c $BatchFilePath" -Wait
+# Run the batch file as administrator
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c $BatchFilePath" -Verb RunAs -Wait
 
 # Clean up temporary files
 Remove-Item -Path $FilePath, $BatchFilePath -Force
