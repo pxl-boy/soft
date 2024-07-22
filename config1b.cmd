@@ -272,7 +272,7 @@ echo:       ______________________________________________________________
 echo:
 echo:                 PILIH Perintah :
 echo:
-echo:             [1] Activation Digital License | Windows | Permanent
+echo:             [1] Activation Digital License Permanent
 echo:             __________________________________________________      
 echo:             [0] Exit
 echo:       ______________________________________________________________
