@@ -273,15 +273,9 @@ echo:
 echo:                 Activation Methods:
 echo:
 echo:             [1] HWID        ^|  Windows           ^|   Permanent
-echo:             [2] Ohook       ^|  Office            ^|   Permanent
-echo:             [3] KMS38       ^|  Windows           ^|   Year 2038
-echo:             [4] Online KMS  ^|  Windows / Office  ^|    180 Days
 echo:             __________________________________________________      
 echo:
-echo:             [5] Activation Status
-echo:             [6] Troubleshoot
-echo:             [7] Extras
-echo:             [8] Help
+echo:             [2] Activation Status
 echo:             [0] Exit
 echo:       ______________________________________________________________
 echo:
@@ -290,13 +284,7 @@ choice /C:123456780 /N
 set _erl=1
 
 if %_erl%==9 exit /b
-if %_erl%==8 start %mas%troubleshoot.html & goto :MainMenu
-if %_erl%==7 goto:Extras
-if %_erl%==6 setlocal & call :troubleshoot      & cls & endlocal & goto :MainMenu
-if %_erl%==5 setlocal & call :_Check_Status_wmi & cls & endlocal & goto :MainMenu
-if %_erl%==4 setlocal & call :KMSActivation     & cls & endlocal & goto :MainMenu
-if %_erl%==3 setlocal & call :KMS38Activation   & cls & endlocal & goto :MainMenu
-if %_erl%==2 setlocal & call :OhookActivation   & cls & endlocal & goto :MainMenu
+if %_erl%==2 setlocal & call :_Check_Status_wmi & cls & endlocal & goto :MainMenu
 if %_erl%==1 setlocal & call :HWIDActivation    & cls & endlocal & goto :MainMenu
 goto :MainMenu
 
