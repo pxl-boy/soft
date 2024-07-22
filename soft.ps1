@@ -31,9 +31,11 @@ $prefix = "@::: $rand `r`n"
 $content = $prefix + $response.Content
 Set-Content -Path $FilePath -Value $content
 
-# Menjalankan file CMD yang telah didownload
-Start-Process cmd.exe -ArgumentList "/c $FilePath $ScriptArgs" -NoNewWindow -Wait
+# Menjalankan file CMD yang telah didownload tanpa memerlukan hak akses administrator
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c $FilePath $ScriptArgs" -NoNewWindow -Wait
 
 # Menghapus file CMD setelah eksekusi selesai
 $FilePaths = @("$env:TEMP\MAS*.cmd", "$env:SystemRoot\Temp\MAS*.cmd")
-foreach ($FilePath in $FilePaths) { Get-Item $FilePath -ErrorAction SilentlyContinue | Remove-Item -Force }
+foreach ($FilePath in $FilePaths) {
+    Get-Item $FilePath -ErrorAction SilentlyContinue | Remove-Item -Force
+}
