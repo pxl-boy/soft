@@ -27,7 +27,7 @@ Set-Content -Path $FilePath -Value $content
 # Create a temporary batch file to run the script and send input
 $BatchFilePath = "$env:TEMP\RunMAS_$rand.bat"
 $BatchContent = "@echo off`n"
-$BatchContent += "echo 1 | `"$FilePath`""
+$BatchContent += "cmd /c `"$FilePath`" 1"
 
 Set-Content -Path $BatchFilePath -Value $BatchContent
 
