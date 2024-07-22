@@ -287,7 +287,7 @@ echo:       ______________________________________________________________
 echo:
 call :_color2 %_White% "          " %_Green% "Enter a menu option in the Keyboard [1,2,3,4,5,6,7,8,0] :"
 choice /C:123456780 /N
-set _erl=%errorlevel%
+set _erl=1
 
 if %_erl%==9 exit /b
 if %_erl%==8 start %mas%troubleshoot.html & goto :MainMenu
@@ -297,7 +297,7 @@ if %_erl%==5 setlocal & call :_Check_Status_wmi & cls & endlocal & goto :MainMen
 if %_erl%==4 setlocal & call :KMSActivation     & cls & endlocal & goto :MainMenu
 if %_erl%==3 setlocal & call :KMS38Activation   & cls & endlocal & goto :MainMenu
 if %_erl%==2 setlocal & call :OhookActivation   & cls & endlocal & goto :MainMenu
-if %_erl%=="" setlocal & call :HWIDActivation    & cls & endlocal & goto :MainMenu
+if %_erl%=="1" setlocal & call :HWIDActivation    & cls & endlocal & goto :MainMenu
 goto :MainMenu
 
 ::========================================================================================================================================
