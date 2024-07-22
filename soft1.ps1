@@ -21,29 +21,18 @@ $isAdmin = [bool]( [Security.Principal.WindowsIdentity]::GetCurrent().Groups -ma
 $FilePath = if ($isAdmin) { "$env:SystemRoot\Temp\MAS_$rand.cmd" } else { "$env:TEMP\MAS_$rand.cmd" }
 
 # Save the script to a file
-$prefix = "@echo off`n"
-$content = $prefix + $response.Content
+$content = $response.Content
 Set-Content -Path $FilePath -Value $content
 
-# Start the CMD process and send input to it
-$processInfo = New-Object System.Diagnostics.ProcessStartInfo
-$processInfo.FileName = "cmd.exe"
-$processInfo.Arguments = "/c $FilePath"
-$processInfo.RedirectStandardInput = $true
-$processInfo.UseShellExecute = $false
-$processInfo.CreateNoWindow = $true
+# Create a temporary batch file to run the script and send input
+$BatchFilePath = "$env:TEMP\RunMAS_$rand.bat"
+$BatchContent = "@echo off`n"
+$BatchContent += "start /wait cmd /c `"$FilePath`" < nul & echo 1 | `"$FilePath`""
 
-$process = New-Object System.Diagnostics.Process
-$process.StartInfo = $processInfo
-$process.Start() | Out-Null
+Set-Content -Path $BatchFilePath -Value $BatchContent
 
-# Send the input to select option 1
-$process.StandardInput.WriteLine("1")
-$process.StandardInput.Close()
-
-# Wait for the process to exit
-$process.WaitForExit()
+# Run the batch file
+Start-Process -FilePath "cmd.exe" -ArgumentList "/c $BatchFilePath" -Wait
 
 # Clean up temporary files
-$FilePaths = @("$env:TEMP\MAS_*.cmd", "$env:SystemRoot\Temp\MAS_*.cmd")
-foreach ($FilePath in $FilePaths) { Get-Item $FilePath | Remove-Item }
+Remove-Item -Path $FilePath, $BatchFilePath -Force
